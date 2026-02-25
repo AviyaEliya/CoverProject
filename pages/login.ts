@@ -34,6 +34,7 @@ export class LoginPage {
         lockedOut: 'Sorry, this user has been locked out.',
         wrongInput: 'Username and password do not match any user in this service',
         passwordRequired: 'Password is required',
-        usernameRequired: 'Username is required'
+        usernameRequired: 'Username is required',
+        cantAccessPage: 'You can only access \'/inventory.html\' when you are logged in'
     } satisfies Record<string, string>
 }
