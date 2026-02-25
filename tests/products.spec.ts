@@ -78,7 +78,7 @@ test('should sort by name(z to a)', async ({ productsPage }) => {
         titles.push(title)
     }
 
-    await expect(titles).toEqual([...titles].sort((a, b) => b.localeCompare(a)))
+    await expect(titles).toBeSorted<string>((a, b) => b.localeCompare(a))
 })
 
 test('should sort by price (high to low)', async ({ productsPage }) => {
@@ -91,5 +91,5 @@ test('should sort by price (high to low)', async ({ productsPage }) => {
         prices.push(+price)
     }
 
-    await expect(prices).toEqual([...prices].sort((a, b) => b - a))
+    await expect(prices).toBeSorted<number>((a, b) => b - a)
 })
