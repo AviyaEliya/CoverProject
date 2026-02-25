@@ -18,6 +18,11 @@ run this command
 npm install
 ```
 
+then this command to install playwright browsers:
+```
+npx playwright install
+```
+
 ## Env Setup
 copy the example.env and rename it to `.env` and change the variables to your liking
 
