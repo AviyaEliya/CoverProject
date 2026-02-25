@@ -10,17 +10,17 @@ const test = base.extend<{ loginPage: LoginPage }>({
 })
 
 test('should login correctly', async ({ loginPage }) => {
-    await loginPage.fillLoginDetails('standard_user', 'secret_sauce');
+    await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME, process.env.PASSWORD);
     await loginPage.isInProductsPage();
 })
 
 test('should show error message when only entering username', async ({ loginPage }) => {
-    await loginPage.fillLoginDetails('standard_user');
+    await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME);
     await expect(loginPage.errorMessage).toContainText(LoginPage.errorMessages.passwordRequired);
 })
 
 test('should show error message when only entering password', async ({ loginPage }) => {
-    await loginPage.fillLoginDetails(undefined, 'secret_sauce');
+    await loginPage.fillLoginDetails(undefined, process.env.PASSWORD);
     await expect(loginPage.errorMessage).toContainText(LoginPage.errorMessages.usernameRequired);
 })
 
@@ -30,11 +30,11 @@ test('should show error message when not entering any fields', async ({ loginPag
 })
 
 test('should show error message when entering correct username and wrong password', async ({ loginPage }) => {
-    await loginPage.fillLoginDetails('standard_user', 'wrong_password');
+    await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME, 'wrong_password');
     await expect(loginPage.errorMessage).toContainText(LoginPage.errorMessages.wrongInput);
 })
 
 test('should show error message when user is locked out', async ({ loginPage }) => {
-    await loginPage.fillLoginDetails('locked_out_user', 'secret_sauce');
+    await loginPage.fillLoginDetails(process.env.LOCKED_OUT_USERNAME, process.env.PASSWORD);
     await expect(loginPage.errorMessage).toContainText(LoginPage.errorMessages.lockedOut);
 })

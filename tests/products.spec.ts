@@ -6,7 +6,7 @@ const test = base.extend<{ productsPage: ProductsPage }>({
     productsPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.goto();
-        await loginPage.fillLoginDetails('standard_user', 'secret_sauce');
+        await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME, process.env.PASSWORD);
         await loginPage.isInProductsPage();
         const productsPage = new ProductsPage(page);
 

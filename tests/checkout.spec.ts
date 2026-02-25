@@ -17,7 +17,7 @@ const test = base.extend<{
     checkoutPageData: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.goto();
-        await loginPage.fillLoginDetails('standard_user', 'secret_sauce');
+        await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME, process.env.PASSWORD);
         await loginPage.isInProductsPage();
         const productsPage = new ProductsPage(page);
         const items = await productsPage.inventoryItems.all();

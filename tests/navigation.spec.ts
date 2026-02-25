@@ -8,7 +8,7 @@ const test = base.extend<{ navigation: Navigation, loginPage: LoginPage, shoppin
     navigation: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.goto();
-        await loginPage.fillLoginDetails('standard_user', 'secret_sauce');
+        await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME, process.env.PASSWORD);
         await loginPage.isInProductsPage();
         const navigation = new Navigation(page);
 
@@ -38,7 +38,7 @@ test('fail to reach products page when logged out', async ({navigation, loginPag
     await navigation.menuButton.click();
     await navigation.logoutButton.click();
     await expect(loginPage.loginButton).toBeVisible();
-    await page.goto('https://www.saucedemo.com/inventory.html');
+    await page.goto('/inventory.html');
     await expect(loginPage.loginButton).toBeVisible();
     await expect(loginPage.errorMessage).toContainText(LoginPage.errorMessages.cantAccessPage);
 })
@@ -59,7 +59,7 @@ test('should save items after logout and login', async ({navigation, productsPag
     await navigation.menuButton.click();
     await navigation.logoutButton.click();
     await expect(loginPage.loginButton).toBeVisible();
-    await loginPage.fillLoginDetails('standard_user', 'secret_sauce');
+    await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME, process.env.PASSWORD);
     await loginPage.isInProductsPage();
 
     const items2 = await productsPage.inventoryItems.all();
