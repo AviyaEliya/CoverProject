@@ -14,6 +14,11 @@ const test = base.extend<{ productsPage: ProductsPage }>({
     }
 })
 
+test('should match snapshot', async ({page, productsPage}) => {
+    await expect(productsPage.inventoryList).toBeVisible()
+    await expect(page).toHaveScreenshot()
+})
+
 test('should display product list', async ({ productsPage }) => {
     await expect(productsPage.inventoryList).toBeVisible();
     const items = await productsPage.inventoryItems.all();

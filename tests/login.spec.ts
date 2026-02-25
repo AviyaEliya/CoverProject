@@ -9,6 +9,11 @@ const test = base.extend<{ loginPage: LoginPage }>({
     }
 })
 
+test('should match snapshot', async ({page, loginPage}) => {
+    await expect(loginPage.loginButton).toBeVisible()
+    await expect(page).toHaveScreenshot()
+})
+
 test('should login correctly', async ({ loginPage }) => {
     await loginPage.fillLoginDetails(process.env.STANDARD_USERNAME, process.env.PASSWORD);
     await loginPage.isInProductsPage();

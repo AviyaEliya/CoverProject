@@ -28,6 +28,11 @@ const test = base.extend<{ shoppingCartData: {
     }
 })
 
+test('should match snapshot', async ({page, shoppingCartData: {shoppingCartPage}}) => {
+    await expect(shoppingCartPage.cartList).toBeVisible()
+    await expect(page).toHaveScreenshot()
+})
+
 test('added items should appear in cart', async ({shoppingCartData:{itemContents,shoppingCartPage}})=>{
     const items = await shoppingCartPage.inventoryItems.all();
     await expect(items).toHaveLength(2);

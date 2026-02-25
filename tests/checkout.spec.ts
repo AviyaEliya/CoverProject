@@ -34,6 +34,12 @@ const test = base.extend<{
     }
 })
 
+test('should match snapshot', async ({page, checkoutPageData}) => {
+    await expect(checkoutPageData.checkoutPage.continueButton).toBeVisible()
+    await page.waitForTimeout(1000)
+    await expect(page).toHaveScreenshot()
+})
+
 test('should fail to checkout without inputting any personal details', async ({ checkoutPageData: { checkoutPage } }) => {
     await checkoutPage.continueButton.click();
     await expect(checkoutPage.errorMessage).toBeVisible();

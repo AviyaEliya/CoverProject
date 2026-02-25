@@ -28,6 +28,11 @@ const test = base.extend<{ navigation: Navigation, loginPage: LoginPage, shoppin
     },
 })
 
+test('should match snapshot', async ({page, navigation}) => {
+    await expect(navigation.menuButton).toBeVisible()
+    await expect(page).toHaveScreenshot()
+})
+
 test('logout button should direct to login screen', async ({navigation, loginPage}) => {
     await navigation.menuButton.click();
     await navigation.logoutButton.click();
@@ -73,10 +78,8 @@ test('should direct to shopping cart when clicking the shopping cart icon', asyn
 })
 
 test('should redirect outside page when clicking the "about" button', async({navigation, page}) => {
-    const urlBefore = page.url()
-
     await navigation.menuButton.click();
     await navigation.aboutButton.click();
 
-    await expect(page.url()).not.toContain(urlBefore)
+    await expect(page.url()).toContain(process.env.ABOUT_PAGE_URL)
 })
